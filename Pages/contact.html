@@ -52,7 +52,6 @@
     <script src="../script.js"></script>
     <script>
         // Supabase Cloud Database Configuration
-        // Paste your URL and Anon Key inside the quotes below!
         const SUPABASE_URL = "https://znpjrdticwxcxxhsqnlf.supabase.co/rest/v1/messages"; 
         const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpucGpyZHRpY3d4Y3h4aHNxbmxmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI2Mjk2MjEsImV4cCI6MjA5ODIwNTYyMX0.gqo_ssjJ15U5jHDTSDTc6RDDaLzwdXCXyJRuS5O-3y0";
 
@@ -86,7 +85,7 @@
                         'apikey': SUPABASE_ANON_KEY,
                         'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
                         'Content-Type': 'application/json',
-                        'Prefer': 'return=minimal' // Tells Supabase we don't need the data sent back
+                        'Prefer': 'return=minimal' 
                     },
                     body: JSON.stringify(payload)
                 });
@@ -97,7 +96,10 @@
                     statusMsg.style.display = "block";
                     document.getElementById('mongo-contact-form').reset(); // Clear inputs
                 } else {
-                    throw new Error('Failed response from database endpoint.');
+                    // Try to read error message details from Supabase if request fails
+                    const errDetail = await response.json().catch(() => ({}));
+                    console.error("Supabase API rejection info:", errDetail);
+                    throw new Error(errDetail.message || 'Failed response from database endpoint.');
                 }
             } catch (error) {
                 console.error("Supabase Error:", error);
