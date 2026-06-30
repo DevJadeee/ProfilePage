@@ -1,0 +1,2 @@
+const SUPABASE_URL = "https://znpjrdticwxcxxhsqnlf.supabase.co/rest/v1/messages";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpucGpyZHRpY3d4Y3h4aHNxbmxmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI2Mjk2MjEsImV4cCI6MjA5ODIwNTYyMX0.gqo_ssjJ15U5jHDTSDTc6RDDaLzwdXCXyJRuS5O-3y0";
