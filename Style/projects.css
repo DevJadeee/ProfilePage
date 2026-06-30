@@ -1,0 +1,144 @@
+/* ==========================================================================
+   SKILLS PROGRESS BARS
+   ========================================================================== */
+.skill { 
+    margin-bottom: 30px; /* Increased slightly to make room for the tooltips */
+}
+
+.skill p {
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #334155;
+}
+
+/* THE EMPTY TRACK */
+.bar { 
+    width: 100%; 
+    height: 12px; 
+    background: #cbd5e1; 
+    border-radius: 20px; 
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
+    /* Removed overflow: hidden; so the hover tooltip can escape the box! */
+}
+
+/* THE COLORED FILL */
+.progress { 
+    height: 100%; 
+    border-radius: 20px; 
+    position: relative; /* Allows us to attach the tooltip to the end of the bar */
+}
+
+/* ==========================================================================
+   THE HOVER TOOLTIPS (Speech Bubble & Arrow)
+   ========================================================================== */
+/* The Speech Bubble */
+.progress::after {
+    position: absolute;
+    right: 0;
+    top: -35px;
+    background: #1e293b;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 6px;
+    opacity: 0;
+    visibility: hidden;
+    /* Centers the bubble right over the tip of the colored bar */
+    transform: translateY(10px) translateX(50%);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* The Little Triangle Arrow pointing down */
+.progress::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -10px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #1e293b transparent transparent transparent;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px) translateX(50%);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* When hovering anywhere on the grey track, show the tooltip! */
+.bar:hover .progress::after,
+.bar:hover .progress::before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) translateX(50%); /* Rises up nicely */
+}
+
+/* ==========================================================================
+   INDIVIDUAL SKILLS (Colors, Tooltip Text & Width Animations)
+   ========================================================================== */
+.html { 
+    background: #ea580c; 
+    animation: fillHtml 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; 
+    animation-delay: 0.1s;
+}
+.html::after { content: "90%"; } /* Injects the text into the tooltip */
+
+.css { 
+    background: #2563eb; 
+    animation: fillCss 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; 
+    animation-delay: 0.2s;
+}
+.css::after { content: "85%"; }
+
+.js { 
+    background: #eab308; 
+    animation: fillJs 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; 
+    animation-delay: 0.3s;
+}
+.js::after { content: "70%"; }
+
+.php { 
+    background: #9333ea; 
+    animation: fillPhp 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; 
+    animation-delay: 0.4s;
+}
+.php::after { content: "75%"; }
+
+.sql { 
+    background: #059669; 
+    animation: fillSql 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; 
+    animation-delay: 0.5s;
+}
+.sql::after { content: "80%"; }
+
+/* ==========================================================================
+   WIDTH KEYFRAMES (Prevents tooltips from stretching horizontally)
+   ========================================================================== */
+@keyframes fillHtml { from { width: 0; } to { width: 90%; } }
+@keyframes fillCss  { from { width: 0; } to { width: 85%; } }
+@keyframes fillJs   { from { width: 0; } to { width: 70%; } }
+@keyframes fillPhp  { from { width: 0; } to { width: 75%; } }
+@keyframes fillSql  { from { width: 0; } to { width: 80%; } }
+
+/* ==========================================================================
+   PROJECT VIDEOS
+   ========================================================================== */
+.card .project-video {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    
+    /* ADDED THIS: Makes it show the clicking finger icon */
+    cursor: pointer; 
+    
+    /* MAKE SURE TO DELETE the pointer-events: none; line! */
+}
+
+/* The zoom effect when you hover over the card */
+.card:hover .project-video {
+    transform: scale(1.05);
+}
