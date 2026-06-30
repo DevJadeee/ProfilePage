@@ -50,13 +50,11 @@
     </footer>
 
     <script src="../script.js"></script>
-
-    <script src="config.js"></script>
-
     <script>
-        // Fallback: Use Vercel Environment Variables if config.js isn't present or live
-        const FINAL_URL = typeof SUPABASE_URL !== 'undefined' && SUPABASE_URL ? SUPABASE_URL : "__SUPABASE_URL_PLACEHOLDER__";
-        const FINAL_KEY = typeof SUPABASE_ANON_KEY !== 'undefined' && SUPABASE_ANON_KEY ? SUPABASE_ANON_KEY : "__SUPABASE_KEY_PLACEHOLDER__";
+        // Supabase Cloud Database Configuration
+        // Paste your URL and Anon Key inside the quotes below!
+        const SUPABASE_URL = "https://znpjrdticwxcxxhsqnlf.supabase.co/rest/v1/messages"; 
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpucGpyZHRpY3d4Y3h4aHNxbmxmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI2Mjk2MjEsImV4cCI6MjA5ODIwNTYyMX0.gqo_ssjJ15U5jHDTSDTc6RDDaLzwdXCXyJRuS5O-3y0";
 
         document.getElementById('mongo-contact-form').addEventListener('submit', async function(e) {
             e.preventDefault(); 
@@ -64,14 +62,17 @@
             const submitBtn = document.getElementById('submit-btn');
             const statusMsg = document.getElementById('form-status');
             
+            // Get input data
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
 
+            // UI feedback
             submitBtn.innerText = "Sending...";
             submitBtn.disabled = true;
             statusMsg.style.display = "none";
 
+            // Prepare payload for Supabase
             const payload = {
                 name: name,
                 email: email,
@@ -79,13 +80,13 @@
             };
 
             try {
-                const response = await fetch(FINAL_URL, {
+                const response = await fetch(SUPABASE_URL, {
                     method: 'POST',
                     headers: {
-                        'apikey': FINAL_KEY,
-                        'Authorization': `Bearer ${FINAL_KEY}`,
+                        'apikey': SUPABASE_ANON_KEY,
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
                         'Content-Type': 'application/json',
-                        'Prefer': 'return=minimal' 
+                        'Prefer': 'return=minimal' // Tells Supabase we don't need the data sent back
                     },
                     body: JSON.stringify(payload)
                 });
@@ -94,7 +95,7 @@
                     statusMsg.innerText = "Success! Your message was saved to Supabase Cloud Storage.";
                     statusMsg.className = "status-msg status-success";
                     statusMsg.style.display = "block";
-                    document.getElementById('mongo-contact-form').reset(); 
+                    document.getElementById('mongo-contact-form').reset(); // Clear inputs
                 } else {
                     throw new Error('Failed response from database endpoint.');
                 }
